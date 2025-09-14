@@ -13,20 +13,45 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
-  modules: {
-  // ✅ commerce modules
-  product: true,
-  cart: true,
-  order: true,
-  payment: true,
-  pricing: true,
-  inventory: true,
-  customer: true,
-  fulfillment: true,
-  notification: true,
-
-  // ❌ admin panel disabled
-  admin: false,
-}
-,
+  modules: [
+    // ✅ commerce modules
+    {
+      resolve: "@medusajs/medusa/product"
+    },
+    {
+      resolve: "@medusajs/medusa/cart"
+    },
+    {
+      resolve: "@medusajs/medusa/order"
+    },
+    {
+      resolve: "@medusajs/medusa/payment"
+    },
+    {
+      resolve: "@medusajs/medusa/pricing"
+    },
+    {
+      resolve: "@medusajs/medusa/inventory"
+    },
+    {
+      resolve: "@medusajs/medusa/customer"
+    },
+    {
+      resolve: "@medusajs/medusa/notification"
+    },
+    // ✅ fulfillment module with providers configured
+    {
+      resolve: "@medusajs/medusa/fulfillment",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/fulfillment-manual",
+            id: "manual",
+          },
+        ],
+      },
+    },
+    // ❌ admin panel disabled
+    // admin: false,
+  ],
 })
